@@ -2,7 +2,7 @@
 
 Windows 桌面工具（Python + Qt6），把常用的命令行操作收进按钮里执行，输出实时展示并记录日志。
 
-![界面预览](assets\CMD.PNG)
+![界面预览](assets/CMD.PNG)
 
 ## 功能概览
 
