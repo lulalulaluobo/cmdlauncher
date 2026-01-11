@@ -1,0 +1,199 @@
+﻿{
+  "commands": [
+    {
+      "id": "group_network",
+      "label": "网络相关",
+      "kind": "group"
+    },
+    {
+      "id": "ipconfig",
+      "label": "IPConfig",
+      "description": "查询本机 IP 与网关信息",
+      "template": "ipconfig",
+      "params": [],
+      "timeout": 10,
+      "admin": false
+    },
+    {
+      "id": "ping",
+      "label": "Ping",
+      "description": "测试网络连通性",
+      "template": "ping {target} -n {count}",
+      "params": [
+        {
+          "id": "target",
+          "label": "Target",
+          "type": "string",
+          "required": false,
+          "default": "www.baidu.com"
+        },
+        {
+          "id": "count",
+          "label": "Count (optional)",
+          "type": "int",
+          "required": false,
+          "default": 4,
+          "min": 1
+        }
+      ],
+      "timeout": 15,
+      "admin": false
+    },
+    {
+      "id": "wifi_profiles",
+      "label": "WiFi 列表",
+      "description": "查看已保存的 WiFi 配置",
+      "template": "netsh wlan show profiles",
+      "params": [],
+      "timeout": 10,
+      "admin": false
+    },
+    {
+      "id": "wifi_profile_detail",
+      "label": "WiFi 密码查询",
+      "description": "查看指定 WiFi 配置（含明文密码）",
+      "template": "netsh wlan show profile name=\"{wifi_name}\" key=clear",
+      "params": [
+        {
+          "id": "wifi_name",
+          "label": "WiFi 名称",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "timeout": 10,
+      "admin": false
+    },
+    {
+      "id": "flush_dns",
+      "label": "清理 DNS",
+      "description": "清理 DNS 缓存",
+      "template": "ipconfig /flushdns",
+      "params": [],
+      "timeout": 10,
+      "admin": true
+    },
+    {
+      "id": "net_connections",
+      "label": "网络连接",
+      "description": "打开网络连接设置",
+      "template": "ncpa.cpl",
+      "params": [],
+      "timeout": 10,
+      "admin": false
+    },
+    {
+      "id": "getmac",
+      "label": "获取 MAC",
+      "description": "查询本机网卡 MAC 地址",
+      "template": "getmac /v",
+      "params": [],
+      "timeout": 10,
+      "admin": false
+    },
+    {
+      "id": "group_system",
+      "label": "系统设置",
+      "kind": "group"
+    },
+    {
+      "id": "boot_to_bios",
+      "label": "进入 BIOS",
+      "description": "重启进入 BIOS（不懂 BIOS 的伙伴勿点）",
+      "template": "shutdown /r /fw /t 0",
+      "params": [],
+      "timeout": 10,
+      "admin": true
+    },
+    {
+      "id": "control_panel",
+      "label": "控制面板",
+      "description": "打开控制面板",
+      "template": "control",
+      "params": [],
+      "timeout": 10,
+      "admin": false
+    },
+    {
+      "id": "remote_desktop",
+      "label": "远程桌面",
+      "description": "打开远程桌面连接",
+      "template": "mstsc",
+      "params": [],
+      "timeout": 10,
+      "admin": false
+    },
+    {
+      "id": "programs_features",
+      "label": "程序和功能",
+      "description": "打开程序和功能（卸载软件）",
+      "template": "appwiz.cpl",
+      "params": [],
+      "timeout": 10,
+      "admin": false
+    },
+    {
+      "id": "hibernate",
+      "label": "休眠设置",
+      "description": "系统休眠开关（节省C盘空间，笔记本不推荐）",
+      "template": "powercfg -h {mode}",
+      "params": [
+        {
+          "id": "mode",
+          "label": "模式",
+          "type": "string",
+          "required": true,
+          "choices": ["off", "on"],
+          "labels": {
+            "off": "关",
+            "on": "开"
+          },
+          "ui": "buttons"
+        }
+      ],
+      "timeout": 10,
+      "admin": true
+    },
+    {
+      "id": "group_maintenance",
+      "label": "系统维护",
+      "kind": "group"
+    },
+    {
+      "id": "disk_cleanup",
+      "label": "磁盘清理",
+      "description": "打开磁盘清理工具",
+      "template": "cleanmgr",
+      "params": [],
+      "timeout": 10,
+      "admin": false
+    },
+    {
+      "id": "clean_temp",
+      "label": "清理临时文件",
+      "description": "删除临时文件夹 %temp% 下的文件",
+      "template": "powershell -NoProfile -Command \"Remove-Item -LiteralPath $env:TEMP\\* -Force -Recurse -ErrorAction SilentlyContinue\"",
+      "params": [],
+      "timeout": 30,
+      "admin": false
+    },
+    {
+      "id": "disable_windows_update",
+      "label": "停止更新",
+      "description": "停止 Windows Update 并禁用服务",
+      "template": "cmd /c \"net stop wuauserv & sc config wuauserv start= disabled\"",
+      "params": [],
+      "timeout": 20,
+      "admin": true
+    },
+    {
+      "id": "enable_windows_update",
+      "label": "恢复更新",
+      "description": "恢复 Windows Update 并启动服务",
+      "template": "cmd /c \"sc config wuauserv start= auto & net start wuauserv\"",
+      "params": [],
+      "timeout": 20,
+      "admin": true
+    }
+  ]
+}
