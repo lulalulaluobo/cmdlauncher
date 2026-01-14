@@ -19,6 +19,7 @@ def main() -> int:
     app = QApplication([])
     app_root = get_app_root()
     commands = load_commands(app_root)
+    # print(commands)
     logger = AppLogger(app_root)
 
     window = MainWindow(commands, logger, app_root)
